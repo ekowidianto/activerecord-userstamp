@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
         "~> #{ENV['RAILS_VERSION']}"
       end
   else
-    rails_version = '>= 4.1'
+    rails_version = '>= 6'
   end
 
   s.add_dependency 'rails', rails_version
