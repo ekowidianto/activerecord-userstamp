@@ -1,9 +1,9 @@
-require File.expand_path('../boot', __FILE__)
+require File.expand_path('boot', __dir__)
 
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "active_record/userstamp"
+require 'userstamp'
 
 module Dummy
   class Application < Rails::Application
@@ -12,7 +12,7 @@ module Dummy
     # -- all .rb files in that directory are automatically loaded.
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+    # Run 'rake -D time' for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
@@ -30,4 +30,3 @@ module Dummy
     end
   end
 end
-

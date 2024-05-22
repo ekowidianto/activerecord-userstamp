@@ -4,7 +4,7 @@
 # your application.
 #
 # See the documentation for `set_stamper` and `reset_stamper` for specific implementation details.
-module ActiveRecord::Userstamp::ControllerAdditions
+module Userstamp::ControllerAdditions
   extend ActiveSupport::Concern
 
   included do
@@ -30,21 +30,21 @@ module ActiveRecord::Userstamp::ControllerAdditions
   # your application you will want to manually add your own implementation of this method to the
   # private section of your +ApplicationController+
   def set_stamper
-    @_userstamp_stamper = ActiveRecord::Userstamp.config.default_stamper_class.stamper
-    ActiveRecord::Userstamp.config.default_stamper_class.stamper = current_user
+    @_userstamp_stamper = Userstamp.config.default_stamper_class.stamper
+    Userstamp.config.default_stamper_class.stamper = current_user
   end
 
   # The {#reset_stamper} method as implemented here assumes that a +User+ model is being used as
   # the stamper. If this is not the case then you will need to manually add your own
   # implementation of this method to the private section of your +ApplicationController+
   def reset_stamper
-    ActiveRecord::Userstamp.config.default_stamper_class.stamper = @_userstamp_stamper
+    Userstamp.config.default_stamper_class.stamper = @_userstamp_stamper
     @_userstamp_stamper = nil
   end
 end
 
 if defined?(ActionController)
   ActionController::Base.class_eval do
-    include ActiveRecord::Userstamp::ControllerAdditions
+    include Userstamp::ControllerAdditions
   end
 end
