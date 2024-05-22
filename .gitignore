@@ -2,3 +2,5 @@
 *.sqlite3
 /.rdoc
 /spec/examples.txt
+.bundle
+.ruby-version

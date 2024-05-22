@@ -13,8 +13,8 @@ models that are subject to being created, updated, or deleted by stampers.
 ## Forkception
 
 This is a fork of:
-
- - the [magiclabs-userstamp](https://github.com/magiclabs/userstamp) gem
+ - The [activerecord-userstamp](https://github.com/lowjoel/activerecord-userstamp) gem
+ - which is a fork of [magiclabs-userstamp](https://github.com/magiclabs/userstamp) gem
  - which is a fork of [Michael Grosser's](https://github.com/grosser)
    [userstamp gem] (https://github.com/grosser/userstamp) 
  - which is a fork of the original [userstamp plugin](https://github.com/delynn/userstamp) by
