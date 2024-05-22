@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe ActiveRecord::Userstamp do
+RSpec.describe Userstamp do
   it 'has a VERSION' do
-    expect(ActiveRecord::Userstamp::VERSION).to match(/^\d+\.\d+\.\d+$/)
+    expect(Userstamp::VERSION).to match(/^\d+\.\d+\.\d+$/)
   end
 end
