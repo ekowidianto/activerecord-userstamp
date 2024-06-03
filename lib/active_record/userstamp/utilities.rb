@@ -1,4 +1,4 @@
-module Userstamp::Utilities
+module ActiveRecord::Userstamp::Utilities
   # Removes the association methods from the model.
   #
   # @param [Class] model The model to remove methods from.
@@ -29,7 +29,7 @@ module Userstamp::Utilities
   def self.available_association_columns(model)
     return nil if model.name.nil? || model.table_name.empty?
     columns = Set[*model.column_names]
-    config = Userstamp.config
+    config = ActiveRecord::Userstamp.config
 
     [config.creator_attribute.present? && columns.include?(config.creator_attribute.to_s),
      config.updater_attribute.present? && columns.include?(config.updater_attribute.to_s),

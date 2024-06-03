@@ -1,17 +1,17 @@
 class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
-    render(inline: '<%= @user.name %>')
+    render(inline: "<%= @user.name %>")
   end
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    render(inline: '<%= @user.name %>')
+    @user.update_attributes(user_params)
+    render(inline: "<%= @user.name %>")
   end
 
   def create
-    raise
+    fail
   end
 
   private

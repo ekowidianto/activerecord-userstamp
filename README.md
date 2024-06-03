@@ -1,4 +1,4 @@
-# ActiveRecord-Userstamp
+# ActiveRecord-Userstamp [![Build Status](https://travis-ci.org/lowjoel/activerecord-userstamp.svg)](https://travis-ci.org/lowjoel/activerecord-userstamp) [![Coverage Status](https://coveralls.io/repos/lowjoel/activerecord-userstamp/badge.svg?branch=master&service=github)](https://coveralls.io/github/lowjoel/activerecord-userstamp?branch=master) [![Code Climate](https://codeclimate.com/github/lowjoel/activerecord-userstamp/badges/gpa.svg)](https://codeclimate.com/github/lowjoel/activerecord-userstamp)
 
 ## Overview
 
@@ -13,8 +13,8 @@ models that are subject to being created, updated, or deleted by stampers.
 ## Forkception
 
 This is a fork of:
- - The [activerecord-userstamp](https://github.com/lowjoel/activerecord-userstamp) gem
- - which is a fork of [magiclabs-userstamp](https://github.com/magiclabs/userstamp) gem
+
+ - the [magiclabs-userstamp](https://github.com/magiclabs/userstamp) gem
  - which is a fork of [Michael Grosser's](https://github.com/grosser)
    [userstamp gem] (https://github.com/grosser/userstamp) 
  - which is a fork of the original [userstamp plugin](https://github.com/delynn/userstamp) by

@@ -6,8 +6,8 @@ RSpec.describe UsersController, type: :controller do
 
   context 'when updating a User' do
     it 'sets the correct updater' do
-      request.session = ActionController::TestSession.new(user_id: @hera.id)
-      patch :update, params: { id: @hera.id, user: { name: 'Different' } }
+      request.session = { user_id: @hera.id }
+      patch :update, id: @hera.id, user: { name: 'Different'}
 
       expect(response.status).to eq(200)
       expect(controller.instance_variable_get(:@user).name).to eq('Different')
@@ -18,17 +18,17 @@ RSpec.describe UsersController, type: :controller do
   context 'when handling multiple requests' do
     def simulate_second_request
       old_request_session = request.session
-      request.session = ActionController::TestSession.new(user_id: @zeus.id)
+      request.session = { user_id: @zeus.id }
 
-      post :update, params: { id: @hera.id, user: { name: 'Different Second' } }
+      post :update, id: @hera.id, user: { name: 'Different Second' }
       expect(controller.instance_variable_get(:@user).updater).to eq(@zeus)
     ensure
       request.session = old_request_session
     end
 
     it 'sets the correct updater' do
-      request.session = ActionController::TestSession.new(user_id: @hera.id)
-      get :edit, params: { id: @hera.id }
+      request.session = { user_id: @hera.id }
+      get :edit, id: @hera.id
       expect(response.status).to eq(200)
 
       simulate_second_request
@@ -39,9 +39,9 @@ RSpec.describe UsersController, type: :controller do
     before { @stamper = User.stamper }
     it 'restores the correct stamper' do
       begin
-        request.session = ActionController::TestSession.new(user_id: @zeus.id)
+        request.session = { user_id: @zeus.id }
         post :create
-      rescue StandardError
+      rescue
       end
 
       expect(User.stamper).to be(@stamper)

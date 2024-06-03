@@ -1,15 +1,15 @@
 # Extends the stamping functionality of ActiveRecord by automatically recording the model
 # responsible for creating, updating, and deleting the current object. See the +Stamper+ and
 # +ControllerAdditions+ modules for further documentation on how the entire process works.
-module Userstamp::Stampable
+module ActiveRecord::Userstamp::Stampable
   extend ActiveSupport::Concern
 
   included do
     # Should ActiveRecord record userstamps? Defaults to true.
-    class_attribute :record_userstamp
+    class_attribute  :record_userstamp
     self.record_userstamp = true
 
-    class_attribute :stamper_class_name
+    class_attribute  :stamper_class_name
 
     before_validation :set_updater_attribute, if: :record_userstamp
     before_validation :set_creator_attribute, on: :create, if: :record_userstamp
@@ -69,28 +69,26 @@ module Userstamp::Stampable
     # Defines the associations for Userstamp.
     def add_userstamp_associations(options)
       @stamper_initialized = true
-      Userstamp::Utilities.remove_association(self, :creator)
-      Userstamp::Utilities.remove_association(self, :updater)
-      Userstamp::Utilities.remove_association(self, :deleter)
+      ActiveRecord::Userstamp::Utilities.remove_association(self, :creator)
+      ActiveRecord::Userstamp::Utilities.remove_association(self, :updater)
+      ActiveRecord::Userstamp::Utilities.remove_association(self, :deleter)
 
-      associations = Userstamp::Utilities.available_association_columns(self)
+      associations = ActiveRecord::Userstamp::Utilities.available_association_columns(self)
       return if associations.nil?
 
-      config = Userstamp.config
+      config = ActiveRecord::Userstamp.config
       klass = stamper_class.try(:name)
       relation_options = options.reverse_merge(class_name: klass)
 
-      belongs_to :creator, **relation_options.reverse_merge(foreign_key: config.creator_attribute, required: false) if
+      belongs_to :creator, **relation_options.reverse_merge(foreign_key: config.creator_attribute) if
         associations.first
-      belongs_to :updater, **relation_options.reverse_merge(foreign_key: config.updater_attribute, required: false) if
+      belongs_to :updater, **relation_options.reverse_merge(foreign_key: config.updater_attribute) if
         associations.second
-
-      return unless associations.third
-
-      if ActiveRecord::VERSION::MAJOR >= 5 || (ActiveRecord::VERSION::MAJOR == 4 && ActiveRecord::VERSION::MINOR >= 2)
-        relation_options.reverse_merge!(required: false)
+      if associations.third
+        relation_options.reverse_merge!(required: false) if ActiveRecord::VERSION::MAJOR >= 5 ||
+          (ActiveRecord::VERSION::MAJOR == 4 && ActiveRecord::VERSION::MINOR >= 2)
+        belongs_to :deleter, **relation_options.reverse_merge(foreign_key: config.deleter_attribute)
       end
-      belongs_to :deleter, **relation_options.reverse_merge(foreign_key: config.deleter_attribute, required: false)
     end
   end
 
@@ -107,7 +105,7 @@ module Userstamp::Stampable
     return unless creator_association
     return if creator.present?
 
-    Userstamp::Utilities.assign_stamper(self, creator_association)
+    ActiveRecord::Userstamp::Utilities.assign_stamper(self, creator_association)
   end
 
   def set_updater_attribute
@@ -117,7 +115,7 @@ module Userstamp::Stampable
     return unless updater_association
     return if !new_record? && !changed?
 
-    Userstamp::Utilities.assign_stamper(self, updater_association)
+    ActiveRecord::Userstamp::Utilities.assign_stamper(self, updater_association)
   end
 
   def set_deleter_attribute
@@ -126,7 +124,7 @@ module Userstamp::Stampable
     deleter_association = self.class.reflect_on_association(:deleter)
     return unless deleter_association
 
-    Userstamp::Utilities.assign_stamper(self, deleter_association)
+    ActiveRecord::Userstamp::Utilities.assign_stamper(self, deleter_association)
     save
   end
 end
