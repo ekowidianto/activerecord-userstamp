@@ -14,24 +14,24 @@ RSpec.describe 'Migration helpers', type: :model do
     with_temporary_table(:default_randoms) do
       it 'has a creator_id association' do
         expect(subject.has_attribute?(:creator_id)).to be true
-        expect(subject.class.columns.find { |c| c.name == 'creator_id' }.null).to be false
+        expect(subject.class.columns.find {|c| c.name == 'creator_id' }.null).to be false
       end
 
       it 'has an updater_id association' do
         expect(subject.has_attribute?(:updater_id)).to be true
-        expect(subject.class.columns.find { |c| c.name == 'updater_id' }.null).to be false
+        expect(subject.class.columns.find {|c| c.name == 'updater_id' }.null).to be false
       end
 
       it 'has a deleter_id association' do
         expect(subject.has_attribute?(:deleter_id)).to be true
-        expect(subject.class.columns.find { |c| c.name == 'deleter_id' }.null).to be false
+        expect(subject.class.columns.find {|c| c.name == 'deleter_id' }.null).to be false
       end
     end
   end
 
   context 'when overridden attribute names are used' do
     before(:each) do
-      Userstamp.configure do |config|
+      ActiveRecord::Userstamp.configure do |config|
         config.creator_attribute = :created_by
         config.updater_attribute = :updated_by
         config.deleter_attribute = :deleted_by
@@ -41,7 +41,7 @@ RSpec.describe 'Migration helpers', type: :model do
       end
     end
     after(:each) do
-      Userstamp.configure do |config|
+      ActiveRecord::Userstamp.configure do |config|
         config.creator_attribute = :creator_id
         config.updater_attribute = :updater_id
         config.deleter_attribute = :deleter_id

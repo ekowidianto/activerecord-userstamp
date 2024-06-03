@@ -1,4 +1,4 @@
-module Userstamp::Configuration
+module ActiveRecord::Userstamp::Configuration
   # !@attribute [r] default_stamper
   #   Determines the default model used to stamp other models.
   #
