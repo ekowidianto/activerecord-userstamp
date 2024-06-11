@@ -2,3 +2,6 @@
 *.sqlite3
 /.rdoc
 /spec/examples.txt
+.ruby-version
+gemfiles/*.lock
+Gemfile.lock
