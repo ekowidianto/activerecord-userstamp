@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'models'
 
 RSpec.describe 'Configuration' do
   describe '.configure' do
