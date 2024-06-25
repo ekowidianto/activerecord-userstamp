@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'models'
 
 RSpec.describe 'Stamper' do
   describe '.model_stamper' do
