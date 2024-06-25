@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'models'
 
 RSpec.describe 'Migration helpers', type: :model do
   context 'when default attribute names are used' do
@@ -31,10 +32,12 @@ RSpec.describe 'Migration helpers', type: :model do
   end
 
   context 'when overridden attribute names are used' do
-    ActiveRecord::Userstamp.configure do |config|
-      config.creator_attribute = :created_by
-      config.updater_attribute = :updated_by
-      config.deleter_attribute = :deleted_by
+    before(:all) do
+      ActiveRecord::Userstamp.configure do |config|
+        config.creator_attribute = :created_by
+        config.updater_attribute = :updated_by
+        config.deleter_attribute = :deleted_by
+      end
     end
 
     class self::OverriddenRandom < ActiveRecord::Base
@@ -47,7 +50,7 @@ RSpec.describe 'Migration helpers', type: :model do
       t.userstamps
     end
 
-    after do
+    after(:all) do
       ActiveRecord::Userstamp.configure do |config|
         config.creator_attribute = :creator_id
         config.updater_attribute = :updater_id

@@ -1,10 +1,17 @@
 require 'rails_helper'
+require 'models'
 
 RSpec.describe 'Stamping', type: :model do
   before(:each) do
-    define_first_post
+    @zeus = User.create!(name: 'Zeus')
+    @hera = User.create!(name: 'Hera')
     User.stamper = @zeus
+
+    @delynn = Person.create!(name: 'Delynn')
+    @nicole = Person.create!(name: 'Nicole')
+
     Person.stamper = @delynn
+    define_first_post
   end
 
   context 'when creating a Person' do
