@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'tzinfo-data' if RUBY_PLATFORM =~ /mswin|mingw/
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rdoc'
-  s.add_development_dependency 'rspec-rails', '>= 3.3'
+  s.add_development_dependency 'rspec-rails', '>= 6'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'codeclimate-test-reporter'
