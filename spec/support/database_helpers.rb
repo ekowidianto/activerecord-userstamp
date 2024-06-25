@@ -1,22 +1,29 @@
+require 'active_record'
+
+def connect_to_database
+  ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
+end
+
+def clear_database
+  ActiveRecord::Base.descendants.each do |model|
+    model.delete_all if model.table_exists?
+  end
+end
+
+def reset_database
+  ActiveRecord::Base.descendants.map(&:reset_column_information)
+  ActiveRecord::Base.connection.disconnect!
+  connect_to_database
+end
+
+def initialize_database(&block)
+  reset_database
+  ActiveRecord::Schema.define(&block)
+end
+
 def define_first_post
   @first_post = Post.create!(title: 'a title')
 end
 
-RSpec.configure do |config|
-  config.before(:each) do
-    User.delete_all
-    Person.delete_all
-    Post.delete_all
-    Comment.delete_all
-    User.reset_stamper
-    Person.reset_stamper
-
-    @zeus = User.create!(name: 'Zeus')
-    @hera = User.create!(name: 'Hera')
-    User.stamper = @zeus.id
-
-    @delynn = Person.create!(name: 'Delynn')
-    @nicole = Person.create!(name: 'Nicole')
-    Person.stamper = @delynn.id
-  end
-end
+ActiveRecord::Migration.verbose = false
+connect_to_database
