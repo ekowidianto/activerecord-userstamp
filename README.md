@@ -2,43 +2,46 @@
 
 ## Overview
 
-Userstamp extends `ActiveRecord::Base` to add automatic updating of `creator`, `updater`, and 
+Userstamp extends `ActiveRecord::Base` to add automatic updating of `creator`, `updater`, and
 `deleter` attributes. It is based loosely on `ActiveRecord::Timestamp`.
 
 Two class methods (`model_stamper` and `stampable`) are implemented in this gem. The `model_stamper`
 method is used in models that are responsible for creating, updating, or deleting other objects.
-Typically this would be the `User` model of your application. The `stampable` method is used in 
+Typically this would be the `User` model of your application. The `stampable` method is used in
 models that are subject to being created, updated, or deleted by stampers.
 
 ## Forkception
 
 This is a fork of:
 
- - the [magiclabs-userstamp](https://github.com/magiclabs/userstamp) gem
- - which is a fork of [Michael Grosser's](https://github.com/grosser)
-   [userstamp gem] (https://github.com/grosser/userstamp) 
- - which is a fork of the original [userstamp plugin](https://github.com/delynn/userstamp) by
-   [delynn](https://github.com/delynn)
+- the [magiclabs-userstamp](https://github.com/magiclabs/userstamp) gem
+- which is a fork of [Michael Grosser's](https://github.com/grosser)
+  [userstamp gem] (https://github.com/grosser/userstamp)
+- which is a fork of the original [userstamp plugin](https://github.com/delynn/userstamp) by
+  [delynn](https://github.com/delynn)
 
 In addition to these, I have cherry picked ideas and changes from the following forks:
 
- - [simplificator](https://github.com/simplificator/userstamp)
- - [akm](https://github.com/akm/magic_userstamp)
- - [konvenit](https://github.com/konvenit/userstamp)
+- [simplificator](https://github.com/simplificator/userstamp)
+- [akm](https://github.com/akm/magic_userstamp)
+- [konvenit](https://github.com/konvenit/userstamp)
 
-Finally, this gem only supports Ruby 2.0 and above. Yes, you really should upgrade to a supported
-version of Ruby. This gem is tested only on Rails 4.2; but it should work with Rails 4+.
+Finally, this gem only supports Ruby 3.0 and 3.1. Yes, you really should upgrade to a supported
+version of Ruby. This gem is tested only on Rails 6 - 7; thus far, we have successfully tested it
+to be compatible with Rails 6.0, 6.1, 7.0, and 7.1
 
 ## Features
+
 ### Soft-deletes
+
 The reason for this is because the original userstamp plugin does not support databases utilising
 soft deletes. They are not tested explicitly within this gem, but it is expected to work with the
 following gems:
 
- - [acts_as_paranoid](https://github.com/ActsAsParanoid/acts_as_paranoid)
- - [paranoia](https://github.com/radar/paranoia)
+- [acts_as_paranoid](https://github.com/ActsAsParanoid/acts_as_paranoid)
+- [paranoia](https://github.com/radar/paranoia)
 
-The `stampable` method has been modified to allow additional arguments to be passed to the 
+The `stampable` method has been modified to allow additional arguments to be passed to the
 creator/updater relations. This allows declarations like:
 
 ```ruby
@@ -51,9 +54,10 @@ to result in a `belongs_to` relation which looks like:
   belongs_to :creator, class_name: '::User', foreign_key: :created_by, with_deleted: true
 ```
 
-Do create a ticket if it is broken, with a pull-request if possible.  
+Do create a ticket if it is broken, with a pull-request if possible.
 
 ### Customisable column names/types
+
 While examining the userstamp gem's network on Github, it was noticed that quite a few forks were
 made to allow customisability in the name and type of the column with the database migration.
 
@@ -61,6 +65,7 @@ This gem now supports customised column names. See the [usage](#usage) section o
 configuration options supported.
 
 ### Saving before validation
+
 This fork includes changes to perform model stamping before validation. This allows models to
 enforce the presence of stamp attributes:
 
@@ -73,7 +78,8 @@ Furthermore, the `creator` attribute is set only if the value is blank allowing 
 override.
 
 ## Usage
-Assume that we are building a blog application, with User and Post objects. Add the following 
+
+Assume that we are building a blog application, with User and Post objects. Add the following
 to the application's Gemfile:
 
 ```ruby
@@ -135,9 +141,10 @@ Declare the stamper on the User model:
 If your stamper is called `User`, that's it; you're done.
 
 ## Customisation
+
 The association which is created on each of the `creator_id`, `updater_id`, and `deleter_id` can
 be customised. Also, the stamper used by each class can also be customised. For this purpose, the
- `ActiveRecord::Base.stampable` method can be used:
+`ActiveRecord::Base.stampable` method can be used:
 
 ```ruby
   class Post < ActiveRecord::Base
@@ -150,8 +157,10 @@ It also allows you to specify the name of the stamper for the class being declar
 arguments are passed to the `belongs_to` declaration.
 
 ## Upgrading
+
 ### Upgrading from delynn's 1.x/2.x with `compatibility_mode`
-The major difference between 1.x and 2.x is the naming of the columns. This version of the gem 
+
+The major difference between 1.x and 2.x is the naming of the columns. This version of the gem
 allows specifying the name of the column from the gem configuration:
 
 ```ruby
@@ -163,6 +172,7 @@ end
 ```
 
 ### Upgrading from delynn's 2.x without `compatibility_mode`
+
 Within migrations, it was possible to declare `t.userstamps` within a table definition. It used
 to accept one argument, which declares whether the deleter column should be created. This has
 been changed to respect the gem configuration's `deleter_attribute`. If that is `nil`, then no
@@ -182,16 +192,18 @@ Configure the gem to use those names (as above) and remove all `stampable` decla
 There is no need to include the `Userstamp` module in `ApplicationController`.
 
 ## Tests
+
 Run
 
     $ bundle exec rspec
 
 ## Authors
- - [DeLynn Berry](http://delynnberry.com/): The original idea for this plugin came from the Rails
-   Wiki article entitled
-   [Extending ActiveRecord](http://wiki.rubyonrails.com/rails/pages/ExtendingActiveRecordExample)
- - [Michael Grosser](http://pragmatig.com)
- - [John Dell](http://blog.spovich.com/)
- - [Chris Hilton](https://github.com/chrismhilton)
- - [Thomas von Deyen](https://github.com/tvdeyen)
- - [Joel Low](http://joelsplace.sg)
+
+- [DeLynn Berry](http://delynnberry.com/): The original idea for this plugin came from the Rails
+  Wiki article entitled
+  [Extending ActiveRecord](http://wiki.rubyonrails.com/rails/pages/ExtendingActiveRecordExample)
+- [Michael Grosser](http://pragmatig.com)
+- [John Dell](http://blog.spovich.com/)
+- [Chris Hilton](https://github.com/chrismhilton)
+- [Thomas von Deyen](https://github.com/tvdeyen)
+- [Joel Low](http://joelsplace.sg)
