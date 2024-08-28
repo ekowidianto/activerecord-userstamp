@@ -6,7 +6,7 @@ require 'active_record/userstamp/version'
 Gem::Specification.new do |s|
   s.name = 'activerecord-userstamp'
   s.version = ActiveRecord::Userstamp::VERSION
-  s.authors = ['Bivan Alzacky Harmanto']
+  s.authors = ['Joel Low', 'Bivan Alzacky Harmanto', 'Adi Suryanata Herwana']
   s.email = ['bivan.alzacky@gmail.com']
 
   s.summary = 'Adds magic creator and updater attributes to your ActiveRecord models.'
@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.add_dependency 'rails', '>= 6'
+  s.add_dependency 'rails', '>= 7.0'
 
   s.required_ruby_version = ">= 3.0"
 
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rdoc'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'coveralls'
+  s.add_development_dependency 'coveralls_reborn'
   s.add_development_dependency 'codeclimate-test-reporter'
   s.add_development_dependency 'sqlite3', "~> 1.7"
   s.add_development_dependency "appraisal", "~> 2.1"

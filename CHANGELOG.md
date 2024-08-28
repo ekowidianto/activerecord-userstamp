@@ -1,4 +1,11 @@
  # Changelog
+ 
+ ## 3.0.7 (4-9-2024)
+  * Adi Suryanata Herwana  - Support Rails >= 7.2 and Ruby >= 3.3.
+ 
+ ## 3.0.6 (24-7-2024)
+  * Bivan Alzacky Harmanto - Support Rails >= 6.0 and Ruby >= 3.0.
+
  ## 3.0.5 (22-8-2017)
   * Jonathan Putney   - Support Rails 5.0.
   * Joel Low          - Add additional combinations to Travis build matrix.
